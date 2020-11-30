@@ -6,14 +6,20 @@ int current_process_number;
 struct timespec timeSIGUSR1;
 
 struct timespec timeSIGUSR2;
+double timeSumSIGUSR1;
+
+double timeSumSIGUSR2;
 
 void reporter_handler(int sig){
     if(sig==SIGUSR1){
         clock_gettime(CLOCK_REALTIME,&timeSIGUSR1);
+        timeSumSIGUSR1 = timeSumSIGUSR1 + timeSIGUSR1.tv_sec + timeSIGUSR2.tv_nsec;
+        timeSumSIGUSR1 /= 1000000000L;
 
     }else if(sig==SIGUSR2){
         clock_gettime(CLOCK_REALTIME,&timeSIGUSR2);
-
+        timeSumSIGUSR2 = timeSumSIGUSR2 + timeSIGUSR2.tv_sec + timeSIGUSR2.tv_nsec;
+        timeSumSIGUSR2 /= 1000000000L;
     }
 }
 
