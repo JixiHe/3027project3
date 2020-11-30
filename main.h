@@ -7,6 +7,10 @@
 #include <fstream>
 
 struct SharedValues {
+    int sentSIGUSR1=0;
+    int sentSIGUSR2=0;
+    int receivedSIGUSR1=0;
+    int receivedSIGUSR2=0;
     pthread_mutex_t lock_1{};
     pthread_mutex_t lock_2{};
 }SharedValues;
