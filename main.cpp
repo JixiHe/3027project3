@@ -9,8 +9,6 @@ int main(){
     int shm_id = shmget(IPC_PRIVATE, sizeof(SharedValues), IPC_CREAT | 0666);
     counter = static_cast<struct SharedValues *>(shmat(shm_id, nullptr, 0));
 
-    block_signal(SIGUSR1);
-    block_signal(SIGUSR2);
 
 
     //create process

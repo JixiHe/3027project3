@@ -4,10 +4,8 @@ using namespace std;
 int current_process_number;
 
 struct timespec timeSIGUSR1;
-double timeSumSIGUSR1;
 
 struct timespec timeSIGUSR2;
-double timeSumSIGUSR2;
 
 void reporter_handler(int sig){
     if(sig==SIGUSR1){
@@ -20,9 +18,7 @@ void reporter_handler(int sig){
 }
 
 [[noreturn]] void reporter(int n){
-    unblock_signal(SIGUSR1);
-    unblock_signal(SIGUSR2);
-    unblock_signal(SIGINT);
+
     signal(SIGINT,reporter_handler);
     signal(SIGUSR1,reporter_handler);
     signal(SIGUSR2,reporter_handler);
