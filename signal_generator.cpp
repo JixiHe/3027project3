@@ -2,14 +2,16 @@
 using namespace std;
 
 void generator_handler(int signal){
+
     if(signal == SIGINT){
         int detatch = shmdt(counter);
         if(detatch==-1){
-            cout<<"fail to detach shared memory"<<endl;
+            cout<<"failded to detach shared memory"<<endl;
         }
     }
     exit(0);
 }
+
 double rand_gengerate(double min, double max){
     int ran = rand();
     double random_number = (fmod((double)ran,max*100)+min*100);
@@ -20,6 +22,7 @@ double rand_gengerate(double min, double max){
     signal(SIGINT,generator_handler);
 
     srand(srand_number);
+
     int x = 0;
     while (true){
         x++;

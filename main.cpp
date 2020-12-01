@@ -3,6 +3,7 @@ using namespace std;
 
 #define run_time -1
 #define max_process 10000
+
 bool check_if_max(){
     int total = counter->sentSIGUSR1 + counter->sentSIGUSR2;
     if(total>=max_process){
@@ -15,6 +16,9 @@ int main(){
     int shm_id = shmget(IPC_PRIVATE, sizeof(SharedValues), IPC_CREAT | 0666);
     counter = static_cast<struct SharedValues *>(shmat(shm_id, nullptr, 0));
 
+    block_signal(SIGUSR1);
+    block_signal(SIGUSR2);
+
     pthread_mutexattr_t attr_1;
     pthread_mutexattr_init(&attr_1);
     pthread_mutexattr_setpshared(&attr_1,PTHREAD_PROCESS_SHARED);
@@ -24,7 +28,6 @@ int main(){
     pthread_mutexattr_init(&attr_2);
     pthread_mutexattr_setpshared(&attr_2,PTHREAD_PROCESS_SHARED);
     pthread_mutex_init(&(counter->lock_2),&attr_2);
-
 
     //create 8 process
     pid_t process[8];
